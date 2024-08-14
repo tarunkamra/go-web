@@ -8,6 +8,6 @@ image:
   repository: public.ecr.aws/l3r9o1g3/tarunkamra
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "10382726805"
+  tag: "10383223734"
 
 
