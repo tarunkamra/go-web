@@ -1,0 +1,39 @@
+name: 10 Build pipeline
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  #name of job, free choice, could also give a name
+  build:
+    # required to fix an issue we had when test results failed because
+    # checks: write and pull-requests: write were needed
+    permissions:
+      contents: read
+      issues: read
+      checks: write
+      pull-requests: write
+    # runner
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go 1.22.5
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.22.5
+
+    - name: Build
+      run: go build -o go-web-app
+
+    - run: mkdir candidate-binary && cp go-web-app candidate-binary/
+
+
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Application-Binary
+        path: candidate-binary
